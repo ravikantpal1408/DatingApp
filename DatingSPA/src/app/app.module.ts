@@ -1,3 +1,4 @@
+import { AlertifyService } from './services/alertify.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,6 +12,8 @@ import { AccountService } from './services/account.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
+
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -19,7 +22,8 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
       RegisterComponent
    ],
    imports: [
-      BrowserModule,
+
+   BrowserModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
@@ -27,7 +31,8 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
    ],
    providers: [
       AccountService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      AlertifyService
    ],
    bootstrap: [
       AppComponent

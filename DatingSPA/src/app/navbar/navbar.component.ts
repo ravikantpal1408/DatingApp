@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AccountService } from '../services/account.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   model: any = {};
 
 
-  constructor(private fb: FormBuilder, private account: AccountService) {
+  constructor(private fb: FormBuilder, private account: AccountService, private alertify: AlertifyService) {
 
   }
 
@@ -28,8 +29,10 @@ export class NavbarComponent implements OnInit {
     this.account.loginService(this.model).subscribe((res: any) => {
       console.log(res);
       this.model = {};
+      this.alertify.success('Logged in Successfully');
     }, error => {
       console.log(error);
+      this.alertify.error(error);
     });
 
   }
@@ -44,6 +47,8 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     console.log('logged out');
+    this.alertify.error('You are logged out');
+
   }
 
 }
