@@ -12,30 +12,24 @@ import { AccountService } from './services/account.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
-
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavbarComponent,
-      HomeComponent,
-      RegisterComponent
-   ],
-   imports: [
-
-   BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      AppRoutingModule
-   ],
-   providers: [
-      AccountService,
-      ErrorInterceptorProvider,
-      AlertifyService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    RegisterComponent
+  ],
+  imports: [
+    BsDropdownModule.forRoot(),
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
+  ],
+  providers: [AccountService, ErrorInterceptorProvider, AlertifyService],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Dating App</a>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Dating App</a>
 
 
 
@@ -13,35 +14,34 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Messages</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()">Logout</a>
-      </li>
+
 
     </ul>
 
-    <div class="dropdown" *ngIf="loggedIn()">
-        <a class="dropdown-toggle text-light"> Welcome User</a>
+    <div class="dropdown" *ngIf="loggedIn()" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle> Welcome
+        {{ account.decodedToken?.unique_name | titlecase }}</a>
 
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item">Edit Profile</a>
-          <div class="dropdown-divider"></div>
-          <a href="" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</a>
-        </div>
+      <div class="dropdown-menu" *dropdownMenu>
+        <a href="#" class="dropdown-item">Edit Profile</a>
+        <div class="dropdown-divider"></div>
+        <a (click)="logout()" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</a>
+      </div>
 
     </div>
 
 
 
-    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0"  (ngSubmit)="onSubmit()">
-      <input class="form-control mr-sm-2" #username="ngModel" [(ngModel)]="model.username"  type="text" name="username"  placeholder="Username"   required>
+    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit()">
+      <input class="form-control mr-sm-2" #username="ngModel" [(ngModel)]="model.username" type="text" name="username"
+        placeholder="Username" required>
 
 
-      <input class="form-control mr-sm-2" #password="ngModel" type="password" name="password" [(ngModel)]="model.password" placeholder="Password"  required >
+      <input class="form-control mr-sm-2" #password="ngModel" type="password" name="password"
+        [(ngModel)]="model.password" placeholder="Password" required>
 
 
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="loginForm.invalid">Login</button>
     </form>
-
+  </div>
 </nav>
-
-

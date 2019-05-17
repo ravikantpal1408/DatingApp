@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   model: any = {};
 
 
-  constructor(private fb: FormBuilder, private account: AccountService, private alertify: AlertifyService) {
+  constructor(private fb: FormBuilder, public account: AccountService, private alertify: AlertifyService) {
 
   }
 
@@ -39,8 +39,9 @@ export class NavbarComponent implements OnInit {
 
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    // const token = localStorage.getItem('token');
+    // return !!token;
+    return this.account.loggedIn();
   }
 
 
