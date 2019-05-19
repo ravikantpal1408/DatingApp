@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { AlertifyService } from '../services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,10 @@ export class NavbarComponent implements OnInit {
   model: any = {};
 
 
-  constructor(private fb: FormBuilder, public account: AccountService, private alertify: AlertifyService) {
+  constructor(private fb: FormBuilder,
+              public account: AccountService,
+              private alertify: AlertifyService,
+              private router: Router) {
 
   }
 
@@ -33,6 +37,8 @@ export class NavbarComponent implements OnInit {
     }, error => {
       console.log(error);
       this.alertify.error(error);
+    }, () => {
+      this.router.navigate(['/members']);
     });
 
   }
@@ -49,7 +55,7 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('token');
     console.log('logged out');
     this.alertify.error('You are logged out');
-
+    this.router.navigate(['/home']);
   }
 
 }
