@@ -39,6 +39,7 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<Seed>(); // Seeding Users in Database
             services.AddCors(options =>
             {
                 options.AddPolicy("MyCorsPolicy", builder => builder
@@ -104,7 +105,7 @@ namespace DatingApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -145,6 +146,7 @@ namespace DatingApp.API
                 // app.UseHsts();
             }
 
+            // seeder.SeedUsers();
             app.UseCors("MyCorsPolicy");
             // app.UseHttpsRedirection();
             app.UseAuthentication();
