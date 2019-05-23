@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -39,21 +40,26 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();   
             services.AddTransient<Seed>(); // Seeding Users in Database
+            // services.AddCors();
             services.AddCors(options =>
             {
                 options.AddPolicy("MyCorsPolicy", builder => builder
-                    .WithOrigins("http://localhost:4200", "http://localhost:5000")
+                    .WithOrigins("http://localhost:4200", "http://localhost:5000","*")
                     .AllowAnyMethod()
                     .AllowCredentials()
-                    .WithHeaders("Accept", "Content-Type", "Origin", "X-My-Header"));
+                    .AllowAnyHeader());
             });
 
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                    .AddJsonOptions(opt => {
+                        opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    });
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -99,8 +105,9 @@ namespace DatingApp.API
             });
 
             ////////////////////
-
+            /* Repository  */    
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
 
         }
 
@@ -148,6 +155,7 @@ namespace DatingApp.API
 
             // seeder.SeedUsers();
             app.UseCors("MyCorsPolicy");
+            // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             // app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();

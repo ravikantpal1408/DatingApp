@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { AlertifyService } from '../services/alertify.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,9 @@ export class RegisterComponent implements OnInit {
 
   model: any = {};
 
-  constructor(private service: AccountService, private alertify: AlertifyService) {}
+  constructor(private service: AccountService, private alertify: AlertifyService) {
+
+  }
 
   ngOnInit() {}
 

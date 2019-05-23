@@ -71,5 +71,14 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true
-  }
+  },
+  "typedef-whitespace": [false,
+    {
+        "callSignature": "noSpace",
+        "catchClause": "noSpace",
+        "indexSignature": "noSpace",
+        "parameter": "noSpace"
+    }
+],
+
 }
