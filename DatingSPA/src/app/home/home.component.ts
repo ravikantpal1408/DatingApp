@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   registerModel = false;
 
   constructor(private router: Router) {
-    console.log('register');
+    // console.log('register');
     if (localStorage.getItem('token') != null) {
       this.router.navigate(['/members']);
     }

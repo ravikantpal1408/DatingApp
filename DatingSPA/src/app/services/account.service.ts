@@ -19,12 +19,12 @@ export class AccountService {
   loginService(loginFormValues: any) {
     return this.http.post(this.BASE_URI + '/login', loginFormValues).pipe(
       map((res: any) => {
-        console.log(res);
+        // console.log(res);
         const user = res;
         if (user) {
           localStorage.setItem('token', user.token);
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          console.log(this.decodedToken);
+          // console.log(this.decodedToken);
         }
       })
     );

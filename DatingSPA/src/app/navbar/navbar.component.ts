@@ -28,10 +28,10 @@ export class NavbarComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.model);
+    // console.log(this.model);
 
     this.account.loginService(this.model).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.model = {};
       this.alertify.success('Logged in Successfully');
     }, error => {
@@ -53,7 +53,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    console.log('logged out');
     this.alertify.error('You are logged out');
     this.router.navigate(['/home']);
   }
