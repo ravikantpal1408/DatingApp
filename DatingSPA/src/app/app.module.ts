@@ -5,6 +5,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { NgxGalleryModule } from 'ngx-gallery';
+
 
 
 import { AppRoutingModule } from './routes.module';
@@ -14,7 +17,6 @@ import { AccountService } from './services/account.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
-import { BsDropdownModule } from 'ngx-bootstrap';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -22,6 +24,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { UserService } from './services/user.service';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailResolver } from './_resolver/member-detail.resolver';
+import { MemberListResolver } from './_resolver/member-list.resolver';
 
 
 
@@ -44,6 +48,8 @@ export function tokenGetter() {
 
    ],
    imports: [
+      NgxGalleryModule,
+      TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       BrowserModule,
       HttpClientModule,
@@ -63,7 +69,9 @@ export function tokenGetter() {
       UserService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      MemberDetailResolver,
+      MemberListResolver
    ],
    bootstrap: [
       AppComponent
