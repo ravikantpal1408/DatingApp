@@ -33,7 +33,7 @@ namespace DatingApp.API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<User> User(int id)
+        public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync( u => u.Id == id);
             return user;
