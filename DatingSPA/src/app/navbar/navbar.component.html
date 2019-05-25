@@ -22,7 +22,7 @@
       <a class="dropdown-toggle text-light" dropdownToggle> Welcome
         {{ account.decodedToken?.unique_name | titlecase }}</a>
       <div class="dropdown-menu" *dropdownMenu>
-        <a href="#" class="dropdown-item">Edit Profile</a>
+        <a href="#" class="dropdown-item" [routerLink]="['/member/edit']" routerLinkActive="active"  >Edit Profile</a>
         <div class="dropdown-divider"></div>
         <a (click)="logout()" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</a>
       </div>
