@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -30,6 +31,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolver/member-edit.resolver';
 import { PreventUnsavedChanges } from './guard/puv.gaurd';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+
 
 
 
@@ -62,6 +64,7 @@ export function tokenGetter() {
       FormsModule,
       ReactiveFormsModule,
       AppRoutingModule,
+      FileUploadModule,
       JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
