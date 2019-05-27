@@ -20,6 +20,7 @@ export class PhotoEditorComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMain: Photo;
+  photoUrl: string;
   
  
   public fileOverBase(e:any):void {
@@ -75,7 +76,8 @@ export class PhotoEditorComponent implements OnInit {
             this.currentMain = this.photos.filter(p => p.isMain === true)[0];
             this.currentMain .isMain = false;
             photo.isMain = true;
-            this.getMemberPhotoChange.emit(photo.url);
+            // this.getMemberPhotoChange.emit(photo.url);
+            this.accountService.changeMemberPhoto(photo.url);
 
           }, error => {
             this.allertify.error(error);

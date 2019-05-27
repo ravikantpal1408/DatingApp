@@ -12,16 +12,18 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   model: any = {};
+  photoUrl: string;
 
 
   constructor(private fb: FormBuilder,
               public account: AccountService,
               private alertify: AlertifyService,
-              private router: Router) {
-
-  }
+              private router: Router) { }
+              
 
   ngOnInit() {
+
+    this.account.currentPhotoUrl.subscribe(photoUrl => this.photoUrl =photoUrl);
 
   }
 
@@ -53,8 +55,12 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.account.decodedToken = null;
+    this.account.currentUser = null;
     this.alertify.error('You are logged out');
     this.router.navigate(['/home']);
+
   }
 
 }
