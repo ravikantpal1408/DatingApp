@@ -26,7 +26,14 @@ export class UserService {
   updateUser(id: number, user: User) {
     console.log('user for edit :', user);
     console.log('user id :', id);
-    return this.http.put(this.baseUrl + 'Users/' + id , user);
+    return this.http.put(this.baseUrl + 'users/' + id , user);
   }
+
+  setMainPhoto(userId: number, id: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+  }
+
+
+
 
 }
