@@ -21,12 +21,12 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   currentMain: Photo;
   photoUrl: string;
-  
- 
-  public fileOverBase(e:any):void {
+
+
+  public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
- 
+
 
   constructor(
     private accountService: AccountService,
@@ -44,16 +44,16 @@ export class PhotoEditorComponent implements OnInit {
       url: this.baseUrl + 'users/' + this.accountService.decodedToken.nameid + '/photos',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
-      allowedFileType:['image'],
+      allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 10*1024*1024
+      maxFileSize: 10 * 1024 * 1024
     });
 
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; }
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
-      if(response) {
+      if (response) {
         const res: Photo = JSON.parse(response);
         const photo = {
           id: res.id,
@@ -70,20 +70,33 @@ export class PhotoEditorComponent implements OnInit {
 
   setMainPhoto(photo: Photo) {
     this.userService.setMainPhoto(this.accountService.decodedToken.nameid, photo.id)
-          .subscribe(()=>{
+      .subscribe(() => {
 
-            console.log("successfully set to main");
-            this.currentMain = this.photos.filter(p => p.isMain === true)[0];
-            this.currentMain .isMain = false;
-            photo.isMain = true;
-            // this.getMemberPhotoChange.emit(photo.url);
-            this.accountService.changeMemberPhoto(photo.url);
-            this.accountService.currentUser.photoUrl = photo.url;
-            localStorage.setItem('user', JSON.stringify(this.accountService.currentUser))
+        console.log("successfully set to main");
+        this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+        this.currentMain.isMain = false;
+        photo.isMain = true;
+        // this.getMemberPhotoChange.emit(photo.url);
+        this.accountService.changeMemberPhoto(photo.url);
+        this.accountService.currentUser.photoUrl = photo.url;
+        localStorage.setItem('user', JSON.stringify(this.accountService.currentUser))
 
-          }, error => {
-            this.allertify.error(error);
-          })
+      }, error => {
+        this.allertify.error(error);
+      })
+  }
+
+
+  deletePhoto(id: number) {
+    this.allertify.confirm('Are you sure you want to delete this photo ?', () => {
+      this.userService.deletePhoto(this.accountService.decodedToken.nameid, id)
+        .subscribe(() => {
+          this.photos.splice(this.photos.findIndex(p => p.id == id), 1);
+          this.allertify.success('Photo has been deleted .');
+        }, error => {
+          this.allertify.error("Failed to delete photo !");
+        });
+    });
   }
 
 
