@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
 
 
 
@@ -59,6 +61,7 @@ export function tokenGetter() {
       NgxGalleryModule,
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
       BrowserModule,
       HttpClientModule,
       FormsModule,
