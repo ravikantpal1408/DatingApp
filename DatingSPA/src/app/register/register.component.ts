@@ -4,6 +4,7 @@ import { AccountService } from '../services/account.service';
 import { AlertifyService } from '../services/alertify.service';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { User } from '../_models/User';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
 
   bsConfig: Partial<BsDatepickerConfig>; // for setting up Bootstrap datepicker 
 
-  // model: any = {};
+  user: User;
   registerForm: FormGroup;
 
 
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private service: AccountService,
     private alertify: AlertifyService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router) {
 
   }
 
@@ -69,16 +71,21 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value);
-    // this.service.registerService(this.model).subscribe((res: any) => {
+    
+    if(this.registerForm.valid) {
+      this.user = Object.assign({}, this.registerForm.value);
+      this.service.registerService(this.user).subscribe(() => {
+        this.alertify.success('Registration Successful');
+      }, error => {
+        this.alertify.error(error);
+      }, () => {
+        this.service.loginService(this.user).subscribe(() => {
+          this.router.navigate(['/members']);
+        })
+      });
 
-    //   this.alertify.success('Registration Successfull');
+    }
 
-    // },
-    // error => {
-    //   console.log('error');
-    //   this.alertify.error(error);
-    // });
   }
 
   cancel() {

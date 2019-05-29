@@ -50,8 +50,8 @@ export class AccountService {
 
 
 
-  registerService(registerFormvalue: any) {
-    return this.http.post(this.BASE_URI + '/register', registerFormvalue);
+  registerService(user: User) {
+    return this.http.post(this.BASE_URI + '/register', user);
   }
 
   loggedIn() {

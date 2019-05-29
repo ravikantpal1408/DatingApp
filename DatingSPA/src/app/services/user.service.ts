@@ -24,8 +24,6 @@ export class UserService {
   }
 
   updateUser(id: number, user: User) {
-    console.log('user for edit :', user);
-    console.log('user id :', id);
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
 
