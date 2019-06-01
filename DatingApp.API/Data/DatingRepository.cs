@@ -30,6 +30,17 @@ namespace DatingApp.API.Data {
 
             users = users.Where (u => u.Gender == userParams.Gender); // applying filter on the basis of gender 
 
+            // Get the id of the users that logged in user has liked
+            if (userParams.Likers) {
+                var userLikers = await GetUserLikes (userParams.UserId, userParams.Likers);
+                users = users.Where (u => userLikers.Contains (u.Id));
+            }
+
+            if (userParams.Likees) {
+                var userLikees = await GetUserLikes (userParams.UserId, userParams.Likers);
+                users = users.Where (u => userLikees.Contains (u.Id));
+            }
+
             if (userParams.MinAge != 18 || userParams.MaxAge != 99) // Applying filters for min and max age
             {
                 var minDob = DateTime.Today.AddYears (-userParams.MaxAge - 1); // this is minimum date of birth
@@ -37,15 +48,13 @@ namespace DatingApp.API.Data {
                 users = users.Where (u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
             }
             // Adding order by filter
-            if(!string.IsNullOrEmpty(userParams.OrderBy)) 
-            {
-                switch(userParams.OrderBy) 
-                {
+            if (!string.IsNullOrEmpty (userParams.OrderBy)) {
+                switch (userParams.OrderBy) {
                     case "created":
-                        users = users.OrderByDescending(u => u.Created);
+                        users = users.OrderByDescending (u => u.Created);
                         break;
                     default:
-                        users = users.OrderByDescending(u => u.LastActive);
+                        users = users.OrderByDescending (u => u.LastActive);
                         break;
                 }
             }
@@ -67,10 +76,30 @@ namespace DatingApp.API.Data {
             return photo;
         }
 
-        public async Task<Photo> GetMainPhotoForUser (int userId) {
+        public async Task<Photo> GetMainPhotoForUser (int userId) { // Checking if user has already liked the likee
             return await _context.Photos.Where (u => u.UserId == userId)
 
                 .FirstOrDefaultAsync (p => p.IsMain);
+        }
+
+        public async Task<Like> GetLike (int userId, int recipientId) {
+            return await _context.Likes
+                .FirstOrDefaultAsync (u => u.LikerId == userId && u.LikeeId == recipientId);
+
+        }
+
+        private async Task<IEnumerable<int>> GetUserLikes (int id, bool likers) // id - refers to the id of current logged in boolean
+        {
+            var user = await _context.Users
+                .Include (x => x.Likers)
+                .Include (x => x.Likees)
+                .FirstOrDefaultAsync (u => u.Id == id);
+
+            if (likers) {
+                return user.Likers.Where (u => u.LikeeId == id).Select (i => i.LikerId);
+            } else {
+                return user.Likees.Where (u => u.LikerId == id).Select (i => i.LikeeId);
+            }
         }
     }
 }

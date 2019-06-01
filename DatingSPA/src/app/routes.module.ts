@@ -1,3 +1,4 @@
+import { ListResolver } from './_resolver/list.resolver';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
@@ -45,7 +46,7 @@ const routes: Routes = [
         component: MessagesComponent,
         canActivate: [AuthGuard]
       },
-      { path: "lists", component: ListComponent, canActivate: [AuthGuard] }
+      { path: "lists", component: ListComponent, canActivate: [AuthGuard], resolve: { users: ListResolver } }
     ]
   },
 
