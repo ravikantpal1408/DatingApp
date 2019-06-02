@@ -11,6 +11,9 @@
 .chat li {
     margin-bottom: 10px;
     padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px; 
+    padding-top: 5px; 
     border: 1px dotted #b3a9a9; 
 }
 

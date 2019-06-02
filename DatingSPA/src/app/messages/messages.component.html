@@ -7,6 +7,7 @@
         btnRadio="Unread"
         name="Unread"
         (click)="loadMessages()"
+        value="Unread"
       >
         <i class="fa fa-envelope"></i> Unread
       </button>
@@ -16,6 +17,7 @@
         [(ngModel)]="messageContainer"
         btnRadio="Inbox"
         (click)="loadMessages()"
+        value="Inbox"
       >
         <i class="fa fa-envelope-open"></i> Inbox
       </button>
@@ -25,6 +27,7 @@
         [(ngModel)]="messageContainer"
         btnRadio="Outbox"
         (click)="loadMessages()"
+        value="Outbox"
       >
         <i class="fa fa-paper-plane"></i> Outbox
       </button>

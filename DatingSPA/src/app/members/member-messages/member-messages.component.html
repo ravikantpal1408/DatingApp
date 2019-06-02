@@ -8,7 +8,7 @@
       <li *ngFor="let message of messages">
         <!-- to them -->
         <div *ngIf="message.senderId == recipient">
-          <span class="chat-img float-left">
+          <span class="chat-img float-left"> 
             <img
               src="{{ message.senderPhotoUrl }}"
               alt="{{ message.senderKnownAs }}"
@@ -20,7 +20,7 @@
               <strong class="primary-font">{{ message.senderKnownAs }}</strong>
               <small class="text-muted float-right">
                 <span class="fa fa-clock-o">
-                  {{ message.messageSent | timeAgo }}</span
+                   {{ message.messageSent | timeAgo }}</span
                 >
               </small>
             </div>
@@ -31,7 +31,7 @@
 
         <!-- to me -->
         <div *ngIf="message.senderId != recipient">
-          <span class="chat-img float-right">
+          <span class="chat-img float-right"> 
             <img
               src="{{ message.senderPhotoUrl }}"
               alt="{{ message.senderKnownAs }}"
@@ -41,14 +41,14 @@
           <div class="chat-body">
             <div class="header">
               <small class="text-muted">
-                <span class="fa fa-clock-o">{{
+                <span class="fa fa-clock-o"> {{
                   message.messageSent | timeAgo
                 }}</span>
                 <span class="text-danger" *ngIf="!message.isRead"
                   >(unread)</span
                 >
                 <span class="text-success" *ngIf="message.isRead"
-                  >(read {{ message.dateRead | timeAgo }})</span
+                  > (read {{ message.dateRead | timeAgo }})</span
                 >
               </small>
               <strong class="primary-font float-right">{{

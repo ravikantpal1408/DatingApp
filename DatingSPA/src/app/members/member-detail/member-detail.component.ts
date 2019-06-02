@@ -33,7 +33,7 @@ export class MemberDetailComponent implements OnInit {
     });
     this.route.queryParams.subscribe(params => {
       const selectedTabs = params['tab'] > 0 ? params['tab'] : 0 ;
-      console.log(selectedTabs);
+      // console.log(selectedTabs);
       this.memberTabs.tabs[selectedTabs].active = true;
     })
 

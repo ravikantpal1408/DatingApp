@@ -41,7 +41,7 @@ namespace DatingApp.API.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessagesForUser (int userId, [FromQuery] MessageParams messageParams) {
+        public async Task<IActionResult> GetMessagesForUser (int userId, [FromQuery]MessageParams messageParams) {
             if (userId != int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value)) {
                 return Unauthorized ();
             }
@@ -144,9 +144,9 @@ namespace DatingApp.API.Controllers {
                 return Unauthorized ();
             }
 
-            var message = await  _repo.GetMessage(userId);
+            var message = await  _repo.GetMessage(id);
 
-            if(message.RecipientId != id)
+            if(message.RecipientId != userId)
             {
                 return Unauthorized();
             }
