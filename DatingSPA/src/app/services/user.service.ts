@@ -91,7 +91,7 @@ export class UserService {
     }
 
 
-    console.log('get messages ', messageContainer);
+    // console.log('get messages ', messageContainer);
 
     return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages?messageContainer='+messageContainer, { observe: 'response', params })
       .pipe(
