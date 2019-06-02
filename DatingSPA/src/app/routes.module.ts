@@ -1,3 +1,4 @@
+import { MessagesResolver } from './_resolver/messages.resolver';
 import { ListResolver } from './_resolver/list.resolver';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
@@ -39,12 +40,14 @@ const routes: Routes = [
         component: MemberEditComponent,
         canActivate: [AuthGuard],
         resolve: { user: MemberEditResolver },
-        canDeactivate: [ PreventUnsavedChanges ]
+        canDeactivate: [PreventUnsavedChanges]
       },
       {
         path: "messages",
         component: MessagesComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        resolve: { messages: MessagesResolver }
+
       },
       { path: "lists", component: ListComponent, canActivate: [AuthGuard], resolve: { users: ListResolver } }
     ]
@@ -59,4 +62,4 @@ const routes: Routes = [
 
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
