@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ export class RegisterComponent {
   // @Output() cancelRegister = new EventEmitter(); // old way of passing value from child to parent 
   cancelRegister = output<boolean>();// new way of doing only available for 17.3 & +
   accountService = inject(AccountService);
+  private toastr = inject(ToastrService);
   model: any = {};
 
   register() {
@@ -22,7 +24,7 @@ export class RegisterComponent {
       next: res => {
         this.cancel();
       },
-      error: err => console.log(err),
+      error: err => this.toastr.error(err.error),
       complete: () => console.log('this request is now completed ... ')
     })
   }
