@@ -16,18 +16,18 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     public async Task<ActionResult<AppUser>> Register(RegisterDTO registerDTO)
     {
         if (await UserExists(registerDTO.UserName)) return BadRequest("Username already exists...");
+        return Ok();
+        // using var hmac = new HMACSHA512();
+        // var user = new AppUser
+        // {
+        //     UserName = registerDTO.UserName.ToLower(),
+        //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
+        //     PasswordSalt = hmac.Key
+        // };
 
-        using var hmac = new HMACSHA512();
-        var user = new AppUser
-        {
-            UserName = registerDTO.UserName.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
-            PasswordSalt = hmac.Key
-        };
-
-        context.AppUsers.Add(user);
-        await context.SaveChangesAsync();
-        return Ok(user);
+        // context.AppUsers.Add(user);
+        // await context.SaveChangesAsync();
+        // return Ok(user);
     }
 
     [HttpPost("login")]
@@ -51,7 +51,6 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         };
         return Ok(accessToken);
     }
-
 
     private async Task<bool> UserExists(string username)
     {
