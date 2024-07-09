@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { map } from 'rxjs';
 import { User } from '../_models/User';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   private http = inject(HttpClient);
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
 
   // key thing about angular service is that it is singleton 
