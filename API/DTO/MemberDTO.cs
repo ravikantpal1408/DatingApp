@@ -1,7 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace API.DTO;
 public class MemberDTO
 {
     public int Id { get; set; }
+    [JsonPropertyName("username")]
     public string? UserName { get; set; }
     public int Age { get; set; }
     public string? PhotoUrl { get; set; }

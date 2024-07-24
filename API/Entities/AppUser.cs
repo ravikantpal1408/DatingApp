@@ -1,10 +1,12 @@
-﻿using API.Extensions;
+﻿using System.Text.Json.Serialization;
+using API.Extensions;
 
 namespace API.Entities;
 
 public class AppUser
 {
     public int Id { get; set; }
+    [JsonPropertyName("username")]
     public required string UserName { get; set; } // this is the feature of c# 12
     public byte[] PasswordHash { get; set; } = [];
     public byte[] PasswordSalt { get; set; } = [];
